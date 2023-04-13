@@ -1,3 +1,5 @@
 /Freyja/settings.py
 /db.sqlite3
 /venv/
+/static/assets/img/demo/
+/static/assets/img/email/
