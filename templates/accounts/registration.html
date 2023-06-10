@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+    <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+                    Sign up</h1>
+                <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+                    Capture and share your visual stories with our Photography website. Join now to unlock a world of
+                    creativity and connect with a passionate community of photographers.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-8">
+                <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
+                    <div class="card-body">
+                        {% include 'includes/messages/messages.html' %}
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-light alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i
+                                                class="zmdi zmdi-close"></i></button>
+                                        <strong><i class="zmdi zmdi-info"></i> Error!</strong> {{ error }}
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                        <form class="form" method="POST" action="{% url 'sign_up' %}">
+                            {% csrf_token %}
+                            <fieldset>
+                                {% bootstrap_form form layout="horizontal" %}
+                                <div class="row mt-2">
+                                    <div class="offset-lg-2 col-lg-4">
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="agreement_checkbox"
+                                                   name="agreement_checkbox">
+                                            <span class="ml-1">
+                                        <label class="form-check-label" for="agreement-checkbox">
+                                            I accept the terms and conditions
+                                        </label>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button class="btn btn-raised btn-primary btn-block">Register Now</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static bootstrap4 %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-dark-light">
+        <div class="container">
+            <div class="text-center">
+                <span class="ms-logo ms-logo-lg ms-logo-white center-block mb-2 mt-2 animated zoomInDown animation-delay-5">P</span>
+                <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+                    PLD<span>450</span></h1>
+                <blockquote
+                        class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7 blockquote text-right">
+                    <p>Only photography has been able to divide human life into a series of moments, each of them
+                        has the value of a complete existence.</p>
+                    <footer>Eadweard Muybridge</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6">
+                <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
+                    <div class="card-body">
+                        {% include 'includes/messages/messages.html' %}
+                        {% if not request.user.is_authenticated %}
+                            <h1 class="color-primary text-center">Login</h1>
+                            <form class="form-horizontal" method="post" action="{% url 'login' %}">
+                                {% csrf_token %}
+
+                                <fieldset>
+                                    {% bootstrap_form form layout="horizontal" %}
+                                </fieldset>
+                                <button class="btn btn-raised btn-primary btn-block">Login <i
+                                        class="zmdi zmdi-long-arrow-right no-mr ml-1"></i></button>
+                            </form>
+                            <div class="text-center">
+                                <a class="btn btn-danger" href="#Recover">Recover Password</a>
+                                <a class="btn btn-primary" href="{% url 'sign_up' %}">Sign Up</a>
+                            </div>
+                        {% else %}
+                            <h1 class="color-primary text-center">Oops!</h1>
+                            <p>It looks like you are already signed in. Did you want to <a href="{% url 'logout' %}">sign out</a>?</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+{% endblock %}

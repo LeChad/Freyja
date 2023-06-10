@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Goodbye{% endblock %}
+{% block head %}
+    <meta http-equiv="refresh" content="5;url={% url 'home' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="padding-top: 150px;">
+        <div class="row justify-content-md-center" >
+            <div class="col-lg-6">
+                <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
+                    <div class="card-body">
+                            <h1 class="color-primary text-center">Goodbye!</h1>
+                            <p>You have successfully signed out and should be redirected shortly. If you are not redirected within 5 seconds, please click
+                            <a href="{% url 'home' %}">here</a>.
+                            </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+{% endblock %}
