@@ -36,7 +36,7 @@
                                         class="zmdi zmdi-long-arrow-right no-mr ml-1"></i></button>
                             </form>
                             <div class="text-center">
-                                <a class="btn btn-danger" href="#Recover">Recover Password</a>
+                                <a class="btn btn-danger" href="{% url 'password_reset' %}">Recover Password</a>
                                 <a class="btn btn-primary" href="{% url 'sign_up' %}">Sign Up</a>
                             </div>
                         {% else %}
