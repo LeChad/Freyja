@@ -3,7 +3,7 @@
     <!--ms-header-dark-->
     <div class="container container-full">
         <div class="ms-title">
-            <a href="index.html">
+            <a href="{% url 'home' %}">
                 <!-- <img src="{% static 'assets/img/demo/logo-header.png' %}" alt=""> -->
                 <span class="ms-logo animated zoomInDown animation-delay-5">P</span>
                 <h1 class="animated fadeInRight animation-delay-6">PLD<span>450</span></h1>
@@ -29,7 +29,7 @@
             {% if  request.user.is_authenticated %}
                 <div class="share-menu">
                     <ul class="share-menu-list">
-                        <li class="animated fadeInRight animation-delay-3"><a href="## User profile"
+                        <li class="animated fadeInRight animation-delay-3"><a href="{% url 'my_profile' %}"
                                                                               class="btn-circle btn-circle-primary"><i
                                 class="fa-solid fa-address-card" style="color: #ffffff"></i></a></li>
                         <li class="animated fadeInRight animation-delay-2"><a href="{% url 'logout' %}"
