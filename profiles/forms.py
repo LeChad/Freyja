@@ -5,8 +5,8 @@ from .models import Profile
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['email']
+        model = Profile
+        fields = ['bio']
 
 
 class ProfileUpdateForm(forms.ModelForm):

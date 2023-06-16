@@ -1,14 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login
+from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from .forms import NewUserForm
+from profiles.models import Profile
 
 
 def homepage(request):
-    context = {}
+    return render(request, 'main/index.html')
 
-    return render(request, 'main/index.html', context)
+
+def photographers(request):
+    photographers_obj = Profile.objects.all().order_by('user')
+    # paginator = Paginator(photographers_obj, 15)
+    # page_number = request.GET.get("page")
+    # page_obj = paginator.get_page(page_number)
+    return render(request, 'main/photographers.html', {"photographers": photographers_obj})
 
 
 def test_page(request):
@@ -31,6 +38,7 @@ def test_page(request):
         )
         messages.info(request, "Sent message?")
     return render(request, 'main/test_page.html', context)
+
 
 def sign_up(request):
     context = {}

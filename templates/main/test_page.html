@@ -9,11 +9,8 @@
                 <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
                     <div class="card-body">
                         {% include 'includes/messages/messages.html' %}
-                        <form class="form-horizontal" method="post" action="{% url 'test' %}">
-                            {% csrf_token %}
-                            <button class="btn btn-raised btn-primary btn-block">Send Email <i
-                                            class="zmdi zmdi-long-arrow-right no-mr ml-1"></i></button>
-                        </form>
+
+                        {{ discovered.first_name }}
                     </div>
                 </div>
             </div>

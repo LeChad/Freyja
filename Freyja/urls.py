@@ -19,7 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from main.views import sign_up
+from main.views import (
+    sign_up,
+    photographers
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +35,10 @@ urlpatterns = [
     path('accounts/signup', sign_up, name='sign_up'),
 
     # User profile application
-    path('profile/', include("profiles.urls"))
+    path('profile/', include("profiles.urls")),
+
+    # Photographers
+    path('photographers/', photographers, name='photographers')
 ]
 
 if settings.DEBUG:

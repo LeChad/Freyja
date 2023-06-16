@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load bootstrap4 card_color %}
+{% block title %}Photographers{% endblock %}
+
+{% block content %}
+    <div class="ms-hero-page-override ms-hero-img-team ms-hero-bg-primary">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+                    Photographers</h1>
+                <p class="lead lead-lg color-medium text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+                    Discover a world of <span class="colorStar">captivating</span> moments through the lenses of
+                    talented photographers.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center card-top">
+            {% for photographer in photographers %}
+                <div class="col-lg-4 col-sm-6">
+                    <div class="card mt-4 card-{% random_color %} wow zoomInUp animation-delay-7">
+                        <div class="ms-hero-bg-{% random_color %} ms-hero-img-city">
+                            {% if photographer %}
+                                <img src="{{ photographer.profile_picture.url }}" alt="{{ photographer.user.username }}"
+                                     class="img-avatar-circle">
+                            {% endif %}
+                        </div>
+                        <div class="card-body pt-6 text-center">
+                            <h3 class="color-warning">{{ photographer.user.first_name }} {{ photographer.user.last_name }}</h3>
+                            <p>{{ photographer.bio }}</p>
+                            <div class="row">
+                                <div class="col text-right">
+                                    <a href="{% url 'user_profile' photographer.user.username %}" class="btn btn-raised btn-sm btn-warning"><i
+                                            class="zmdi zmdi-account"></i> Profile
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

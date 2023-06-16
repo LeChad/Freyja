@@ -1,16 +1,19 @@
-from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
-from django.contrib import messages
-from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import Http404
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.views import View
+
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class UserProfile(LoginRequiredMixin, View):
+    def get(self, request, username):
+        user_details = get_object_or_404(User, username=username)
+
+        context = {'discovered': user_details}
+        return render(request, 'main/test_page.html', context)
 
 
 class MyProfile(LoginRequiredMixin, View):
@@ -42,12 +45,12 @@ class MyProfile(LoginRequiredMixin, View):
 
             messages.success(request, 'Your profile has been updated successfully')
 
-            return redirect('profile')
+            return redirect('my_profile')
         else:
             context = {
                 'user_form': user_form,
                 'profile_form': profile_form
             }
-            messages.error(request, 'Error updating you profile')
+            messages.error(request, 'Error updating your profile')
 
             return render(request, 'profiles/profile.html', context)
