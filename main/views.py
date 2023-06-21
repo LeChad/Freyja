@@ -50,7 +50,7 @@ def sign_up(request):
             checkbox_value = request.POST.get("agreement_checkbox")
             if checkbox_value == "on":
                 form.save()
-                messages.success(request, f"Your account has been created.")
+                messages.success(request, "Your account has been created.")
                 send_mail(
                     subject="Welcome to Freyja!",
                     message=f"""

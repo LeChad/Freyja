@@ -13,12 +13,13 @@
                 <li class="nav-item dropdown {% is_active request 'home' %}">
                     <a href="{% url 'home' %}" class="nav-link dropdown-toggle animated fadeIn animation-delay-7" role="button" aria-haspopup="true" aria-expanded="false" data-name="home">Home</a>
                 </li>
-                <li class="nav-item dropdown {% is_active request 'photographers' %}">
-                    <a href="{% url 'photographers' %}" class="nav-link animated fadeIn animation-delay-7" role="button" aria-haspopup="true" aria-expanded="false" data-name="page">Photographers
+                <li class="nav-item dropdown">
+                    <a href="{% url 'about' %}" class="nav-link animated fadeIn animation-delay-7" role="button" aria-haspopup="true"
+                       aria-expanded="false" data-name="page">About
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link animated fadeIn animation-delay-7" role="button" aria-haspopup="true" aria-expanded="false" data-name="page">Gallery
+                <li class="nav-item dropdown {% is_active request 'photographers' %}">
+                    <a href="{% url 'photographers' %}" class="nav-link animated fadeIn animation-delay-7" role="button" aria-haspopup="true" aria-expanded="false" data-name="page">Photographers
                     </a>
                 </li>
             </ul>

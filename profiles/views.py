@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.views import View
 
@@ -11,12 +10,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class UserProfile(LoginRequiredMixin, View):
     def get(self, request, username):
         user_details = get_object_or_404(User, username=username)
+        print(f"USERNAME: {username}")
 
-        context = {'discovered': user_details}
-        return render(request, 'main/test_page.html', context)
+        context = {'user': user_details}
+        return render(request, 'profiles/profile.html', context)
 
 
-class MyProfile(LoginRequiredMixin, View):
+class EditProfile(LoginRequiredMixin, View):
     def get(self, request):
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
@@ -26,7 +26,7 @@ class MyProfile(LoginRequiredMixin, View):
             'profile_form': profile_form
         }
 
-        return render(request, 'profiles/profile.html', context)
+        return render(request, 'profiles/edit_profile.html', context)
 
     def post(self, request):
         user_form = UserUpdateForm(
@@ -53,4 +53,8 @@ class MyProfile(LoginRequiredMixin, View):
             }
             messages.error(request, 'Error updating your profile')
 
-            return render(request, 'profiles/profile.html', context)
+            return render(request, 'profiles/edit_profile.html', context)
+
+class MyProfile(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'profiles/profile.html')
