@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
-{% block title %}Upload{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-    {% include 'includes/messages/messages.html' %}
     <div class="container col-lg-3 text-center">
         <div class="card animated fadeInUp animation-delay-7">
+            <div class="ms-hero-bg-primary ms-hero-img-coffee">
+                {% if user.profile %}
+                    <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
+                         class="img-avatar-circle">
+                {% endif %}
+            </div>
+            <div class="card-body pt-4">
+                <h3 class="color-primary">{{ user.first_name }} {{ user.last_name }}</h3>
+                <p>{{ user.profile.bio }}</p>
+            </div>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-               <!-- <div class="form-group row is-empty">
+                <div class="form-group row is-empty">
                     <label for="bio" class="col-lg-2 control-label">Bio</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control" id="bio" name="bio" value="{{ user.profile.bio }}"/>
@@ -22,10 +29,11 @@
                         <input type="text" readonly="" class="form-control" placeholder="Browse...">
                         <input type="file" id="profile_picture" name="profile_picture" multiple="">
                     </div>
-                </div>-->
-                <button type="submit" class="btn btn-primary full-width">Upload</button>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Update Profile</button>
             </form>
         </div>
     </div>
 
-{% endblock %}
+
+{% endblock content %}

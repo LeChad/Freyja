@@ -24,6 +24,7 @@ from main.views import (
     photographers
 )
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
@@ -38,7 +39,10 @@ urlpatterns = [
     path('profile/', include("profiles.urls")),
 
     # Photographers
-    path('photographers/', photographers, name='photographers')
+    path('photographers/', photographers, name='photographers'),
+
+    #Photographs and Albums
+    path('manage/', include('photography_album.urls'))
 ]
 
 if settings.DEBUG:

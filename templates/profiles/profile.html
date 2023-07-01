@@ -5,24 +5,11 @@
 {% block content %}
     <div class="container">
         <div class="row">
+            {% include 'includes/messages/messages.html' %}
             <div class="col-lg-4">
                 <div class="row">
                     <div class="col-lg-12 col-md-6 order-md-1">
-                        <div class="card animated fadeInUp animation-delay-7">
-                            <div class="ms-hero-bg-primary ms-hero-img-coffee">
-                                {% if user.profile %}
-                                    <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
-                                         class="img-avatar-circle">
-                                {% endif %}
-                            </div>
-                            <div class="card-body pt-4 text-center">
-                                <h3 class="color-primary">{{ user.first_name }} {{ user.last_name }}</h3>
-                                <p>{{ user.profile.bio }}</p>
-                            </div>
-                        {% if request.user.id == user.id %}
-                            <a href="#" class="btn btn-primary full-width">Edit Profile</a>
-                        {% endif %}
-                        </div>
+                        {% include 'profiles/partials/_details.html' %}
                     </div>
                 </div>
             </div>

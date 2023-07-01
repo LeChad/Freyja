@@ -1,0 +1,15 @@
+<div class="card animated fadeInUp animation-delay-7">
+    <div class="ms-hero-bg-primary ms-hero-img-coffee">
+        {% if user.profile %}
+            <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}"
+                 class="img-avatar-circle">
+        {% endif %}
+    </div>
+    <div class="card-body pt-4 text-center">
+        <h3 class="color-primary">{{ user.first_name }} {{ user.last_name }}</h3>
+        <p>{{ user.profile.bio }}</p>
+    </div>
+    {% if request.user.id == user.id %}
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary full-width">Edit Profile</a>
+    {% endif %}
+</div>

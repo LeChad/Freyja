@@ -4,9 +4,12 @@ from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from .forms import NewUserForm
 from profiles.models import Profile
-
+from photography_album.models import (
+    Photographs,
+)
 
 def homepage(request):
+    photographs = Photographs.objects.all()
     return render(request, 'main/index.html')
 
 
@@ -46,11 +49,13 @@ def sign_up(request):
 
     if request.method == "POST":
         form = NewUserForm(request.POST)
+
         if form.is_valid():
             checkbox_value = request.POST.get("agreement_checkbox")
             if checkbox_value == "on":
                 form.save()
                 messages.success(request, "Your account has been created.")
+
                 send_mail(
                     subject="Welcome to Freyja!",
                     message=f"""

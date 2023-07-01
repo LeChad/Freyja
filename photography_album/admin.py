@@ -3,4 +3,4 @@ from .models import Photographs
 
 @admin.register(Photographs)
 class PhotographModel(admin.ModelAdmin):
-    list_display = ("photograph_id", "title", "description")
+    list_display = ("photograph_id", "title", "description", "uploaded_by", "upload_date")
