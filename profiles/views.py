@@ -18,10 +18,12 @@ class UserProfile(LoginRequiredMixin, View):
     def get(self, request, username):
         user_details = get_object_or_404(User, username=username)
         albums = Albums.objects.filter(created_by=user_details.id)
+        photographs = Photographs.objects.filter(uploaded_by=user_details.id)
 
         context = {
             'user': user_details,
-            'albums': albums
+            'albums': albums,
+            'photographs': photographs
         }
         return render(request, 'profiles/profile.html', context)
 
@@ -68,9 +70,11 @@ class MyProfile(LoginRequiredMixin, View):
     def get(self, request):
         user_details = get_object_or_404(User, username=request.user.profile.user)
         albums = Albums.objects.filter(created_by=user_details.id)
+        photographs = Photographs.objects.filter(uploaded_by=user_details.id)
 
         context = {
             'user': user_details,
-            'albums': albums
+            'albums': albums,
+            'photographs': photographs
         }
         return render(request, 'profiles/profile.html', context)

@@ -39,7 +39,7 @@ class Photographs(models.Model):
 class Albums (models.Model):
     class Meta:
         verbose_name = "Albums"
-        verbose_name_plural = "Ablums"
+        verbose_name_plural = "Albums"
 
     album_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, blank=False, null=False, default="Untitled")
@@ -49,3 +49,13 @@ class Albums (models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AlbumContents(models.Model):
+    class Meta:
+        verbose_name = "Album Contents"
+        verbose_name_plural = "Album Contents"
+
+
+    album_id = models.ForeignKey(Albums, null=True, editable=True, on_delete=models.CASCADE)
+    photograph_id = models.ForeignKey(Photographs, null=True, editable=True, on_delete=models.CASCADE)
