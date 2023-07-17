@@ -34,3 +34,18 @@ class Photographs(models.Model):
     def delete(self, *args, **kwargs):
         remove(self.photograph.path)
         super(Photographs, self).delete(*args, **kwargs)
+
+
+class Albums (models.Model):
+    class Meta:
+        verbose_name = "Albums"
+        verbose_name_plural = "Ablums"
+
+    album_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, blank=False, null=False, default="Untitled")
+    description = models.CharField(max_length=500, null=True)
+    created_date = models.DateField(auto_now=True, editable=False)
+    created_by = models.ForeignKey(User, null=True, editable=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name

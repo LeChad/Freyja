@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block title %}Details{% endblock %}
+
+{% block content %}
+<div class="ms-hero-page-override ms-hero-bg-primary ms-hero-img-coffee">
+    <h2 class="text-center no-m pt-4 pb-4 color-white index-1 animated fadeInUp animation-delay-7">{{ photograph.title }}</h2>
+</div>
+    <div class="container">
+    <div class="card card-hero animated fadeInUp animation-delay-7">
+        <img src="{{ photograph.photograph.url }}" alt="..." class="img-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card-body">
+                    <h3 class="color-primary">Information</h3>
+                    <ul class="list-unstyled">
+                        <li><strong>Title:</strong> {{ photograph.title }}</li>
+                        <li><strong>Author:</strong> {{ photograph.uploaded_by }}</li>
+                        <li><strong>Upload Date:</strong> {{ photograph.upload_date }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card-body">
+                    <h3 class="color-primary">Description</h3>
+                    <p>{{ photograph.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,17 +1,28 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProfileUpdateForm, UserUpdateForm
-from .models import User, Profile
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import (
+    User,
+    Profile
+)
+from photography_album.models import (
+    Photographs,
+    Albums
+)
 
 
 class UserProfile(LoginRequiredMixin, View):
     def get(self, request, username):
         user_details = get_object_or_404(User, username=username)
+        albums = Albums.objects.filter(created_by=user_details.id)
 
-        context = {'user': user_details}
+        context = {
+            'user': user_details,
+            'albums': albums
+        }
         return render(request, 'profiles/profile.html', context)
 
 
@@ -22,7 +33,7 @@ class EditProfile(LoginRequiredMixin, View):
 
         context = {
             'user_form': user_form,
-            'profile_form': profile_form
+            'profile_form': profile_form,
         }
 
         return render(request, 'profiles/partials/_edit.html', context)
@@ -55,4 +66,11 @@ class EditProfile(LoginRequiredMixin, View):
 
 class MyProfile(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'profiles/profile.html')
+        user_details = get_object_or_404(User, username=request.user.profile.user)
+        albums = Albums.objects.filter(created_by=user_details.id)
+
+        context = {
+            'user': user_details,
+            'albums': albums
+        }
+        return render(request, 'profiles/profile.html', context)

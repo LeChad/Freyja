@@ -9,15 +9,13 @@ from photography_album.models import (
 )
 
 def homepage(request):
-    photographs = Photographs.objects.all()
-    return render(request, 'main/index.html')
+    photographs = Photographs.objects.all()[:15]
+    context = {"photographs": photographs}
+    return render(request, 'main/index.html', context)
 
 
 def photographers(request):
     photographers_obj = Profile.objects.all().order_by('user')
-    # paginator = Paginator(photographers_obj, 15)
-    # page_number = request.GET.get("page")
-    # page_obj = paginator.get_page(page_number)
     return render(request, 'main/photographers.html', {"photographers": photographers_obj})
 
 
