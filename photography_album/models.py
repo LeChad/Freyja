@@ -56,6 +56,9 @@ class AlbumContents(models.Model):
         verbose_name = "Album Contents"
         verbose_name_plural = "Album Contents"
 
+    def __str__(self):
+        return f"{self.album_id}"
 
     album_id = models.ForeignKey(Albums, null=True, editable=True, on_delete=models.CASCADE)
     photograph_id = models.ForeignKey(Photographs, null=True, editable=True, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, null=True, editable=True, on_delete=models.CASCADE)

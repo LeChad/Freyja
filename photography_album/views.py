@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic.edit import DeleteView
 from django.contrib import messages
-from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UploadPhotograph, AlbumForm
+from .forms import UploadPhotograph, AlbumForm, AlbumContent
 from .models import Photographs
-from django.urls import reverse_lazy
 
 class PhotographDetails(LoginRequiredMixin, View):
     def get(self, request, photograph_id):
@@ -17,14 +14,33 @@ class PhotographDetails(LoginRequiredMixin, View):
         }
         return render(request, 'photographs_albums/photograph_details.html', context)
 
+
+def add_to_album(request, photograph_id):
+    if request.method == 'POST':
+        form = AlbumContent(user=request.user, request=request, data=request.POST)
+        if form.is_valid():
+            album_content = form.save(commit=False)
+            album_content.album_id_id = request.POST['albumSelection']
+            album_content.photograph_id_id = photograph_id
+            album_content.created_by = request.user
+            album_content.save()
+            messages.success("Added photograph to album")
+            return redirect('photographs')  # Redirect to a success page after saving the form
+    else:
+        form = AlbumContent(user=request.user, request=request)
+    return redirect('photographs')
+
+
 class PhotographView(LoginRequiredMixin, View):
     def get(self, request):
         form = UploadPhotograph
+        albumSelection = AlbumContent(request.user)
         photographs = Photographs.objects.filter(uploaded_by=request.user.id)
 
         context = {
             'form': form,
             'photographs': photographs,
+            'albumContent': albumSelection
         }
         return render(request, 'photographs_albums/photographs.html', context)
 

@@ -61,6 +61,11 @@
                                     <h3 class="color-primary no-mt">{{ photo.title }}</h3>
                                     <p>{{ photo.description }}</p>
                                 </div>
+                                <form method="POST" action="{% url 'add_to_album' photo.photograph_id %}">
+                                    {% csrf_token %}
+                                    {{ albumContent }}
+                                    <button type="submit" name="AddToAlbum" class="btn btn-primary full-width">Add to album</button>
+                                </form>
 
                             </div>
                         </div> <!-- item -->
