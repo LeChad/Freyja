@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 {% block title %}Details{% endblock %}
 
+
 {% block content %}
 <div class="ms-hero-page-override ms-hero-bg-primary ms-hero-img-coffee">
     <h2 class="text-center no-m pt-4 pb-4 color-white index-1 animated fadeInUp animation-delay-7">{{ photograph.title }}</h2>
@@ -28,5 +29,6 @@
             </div>
         </div>
     </div>
+    {% include 'includes/comments/comments.html' with url=object.slug %}
 </div>
 {% endblock %}

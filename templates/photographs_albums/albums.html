@@ -3,31 +3,51 @@
 {% block title %}Albums{% endblock %}
 
 {% block content %}
-    <div class="container col-lg-4 text-center">
-    {% include 'includes/messages/messages.html' %}
-        <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-title"><i class="zmdi zmdi-cloud-upload"></i>Create Album</h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 d-none d-lg-block">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="zmdi zmdi-cloud-upload"></i>Create Album</h3>
+                    </div>
+                    <div class="card-body no-pb">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row is-empty">
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group row is-empty">
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="description" name="description"
+                                           placeholder="Description"/>
+                                </div>
+                            </div>
+                            <div class="form-group row is-empty">
+                                <button type="submit" class="btn btn-primary full-width center-block ">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body overflow-hidden text-center">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-group row is-empty">
-                        <label for="name" class="col-lg-2 control-label">Name</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" id="name" name="name" />
+            <div class="col-md-9">
+                {% include 'includes/messages/messages.html' %}
+                <div class="row" id="Container">
+                    {% for album in albums %}
+                        <div class="col-md-3">
+                        <div class="card card-info">
+                          <div class="card-body overflow-hidden text-center">
+                            <span class="ms-icon ms-icon-circle ms-icon-xxlg mb-4 color-info"><i class="zmdi zmdi-cloud-outline"></i></span>
+                            <h4 class="color-info">{{ album.name }}</h4>
+                            <p>{{ album.description }}</p>
+                          </div>
                         </div>
-                    </div>
-                    <div class="form-group row is-empty">
-                        <label for="description" class="col-lg-2 control-label">Description</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" id="description" name="description"/>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary full-width">Create</button>
-                </form>
+                      </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-
 {% endblock %}

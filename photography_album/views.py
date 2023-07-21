@@ -3,7 +3,7 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UploadPhotograph, AlbumForm, AlbumContent
-from .models import Photographs
+from .models import Photographs, Albums
 
 class PhotographDetails(LoginRequiredMixin, View):
     def get(self, request, photograph_id):
@@ -24,7 +24,7 @@ def add_to_album(request, photograph_id):
             album_content.photograph_id_id = photograph_id
             album_content.created_by = request.user
             album_content.save()
-            messages.success("Added photograph to album")
+            messages.success(request, "Added photograph to album")
             return redirect('photographs')  # Redirect to a success page after saving the form
     else:
         form = AlbumContent(user=request.user, request=request)
@@ -61,7 +61,10 @@ class PhotographView(LoginRequiredMixin, View):
 class AlbumView(LoginRequiredMixin, View):
     def get(self, request):
         form = AlbumForm
-        context = {"form": form}
+        albums = Albums.objects.filter(created_by=request.user)
+
+        context = {"form": form,
+                   "albums": albums }
         return render(request, "photographs_albums/albums.html", context)
 
     def post(self, request):

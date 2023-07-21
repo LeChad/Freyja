@@ -17,6 +17,7 @@ class AlbumContent(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         super(AlbumContent, self).__init__(*args, **kwargs)
         self.fields['albumSelection'].queryset = Albums.objects.filter(created_by_id=user)
+        self.fields['albumSelection'].label = ""
     def save(self, commit=True):
         instance = super(AlbumContent, self).save(commit=False)
         instance.photograph_id = self.request.POST.get('photograph_id')
@@ -29,5 +30,6 @@ class AlbumContent(forms.ModelForm):
 
     albumSelection = forms.ModelChoiceField(
         queryset=None,
-        empty_label=None
+        empty_label=None,
+        widget=forms.Select(attrs={'class': 'dropdown bootstrap-select form-control'})
     )
